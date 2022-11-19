@@ -1,12 +1,11 @@
-Package: rssrt
-Title: What the Package Does (One Line, Title Case)
+Package: SimSST
+Title: Simulated Stop Signal Task Data
 Version: 0.0.0.9000
 Authors@R: 
-    c(person("Mohsen", "Soltanifar", , "mohsen.soltanifar@mail.utoronto.ca", role = c("aut", "cre")), person("Chel Hee", "Lee", "chelhee.lee@ucalgary.ca", role="ctb") 
-    )
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    c(c(person("Mohsen", "Soltanifar", , "mohsen.soltanifar@mail.utoronto.ca", role = c("aut", "cre")), person("Chel Hee", "Lee", "chelhee.lee@ucalgary.ca", role="ctb") 
+    ), c(person("Chel Hee", "Lee", , "chelhee.lee@ucalgary.ca", role="ctb")))
+Description: Simulate stop signal task data. 
+License: `use_mit_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

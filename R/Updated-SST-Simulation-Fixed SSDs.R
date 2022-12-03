@@ -8,7 +8,7 @@ library(dplyr)
 ################################################################################
 
 ################################################################################
-#[1] Step(1): Do for one block and ExG/SW distribution  (for either Go/Stop)   OK 
+#[1] Step(1): Do for one block and ExG/SW distribution  (for either Go/Stop)   OK
 
 
 #pid: Participant.id
@@ -23,81 +23,83 @@ library(dplyr)
 
 #SSD.b:  one block stop signal delay
 
-SstSimulatedFixedSsdBlock=function(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop){
-  SRRT0=-999;
-  SSD1=SSD.b;
-  id1<-as.vector(matrix(pid,nrow=1,ncol = n));
-  
-  
+
+
+SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop){
+
+  SRRT0=-999
+  SSD1=SSD.b
+  id1 <- as.vector(matrix(pid,nrow=1,ncol = n))
+
   if(!(dist.go %in% c("ExG", "SW"))) {warning("This is incorrect Go distribution!") & break}
   if(!(dist.stop %in% c("ExG", "SW"))) {warning("This is incorrect Stop distribution!") & break}
-  
+
   if(dist.go=="ExG" & dist.stop=="ExG"){
-    GORT1 <- round(rexGAUS(n, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]), digits = 1);
-    SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)}  
-  
+    GORT1 <- round(rexGAUS(n, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]), digits = 1)
+    SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)
+    }
+
   if(dist.go=="ExG" & dist.stop=="SW"){
     GORT1 <- round(rexGAUS(n, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]), digits = 1);
-    SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)}  
-  
+    SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)}
+
   if(dist.go=="SW" & dist.stop=="ExG"){
     GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1) ;
-    SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)} 
-  
+    SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)}
+
   if(dist.go=="SW" & dist.stop=="SW"){
     GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1) ;
     SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)}
 
-  
+
   SSRT1SSD1 <- SSRT1+SSD1;
   SSD1<-as.vector(matrix(SSD1,nrow=1,ncol = n));
   SRRT1<-as.vector(matrix(SRRT0,nrow=1,ncol=n));
-  
+
   TrialType1 <-as.vector(matrix('Go',nrow=1,ncol = n));
   Inhibition1 <-as.vector(matrix('-999',nrow=1,ncol = n));
-  
+
   for (i in 1:m)
   {
     if (GORT1[i] > SSRT1SSD1[i]) { TrialType1[i]='Stop(Successful)'} else  {TrialType1[i]='Stop(Failed)'}
     if (GORT1[i] > SSRT1SSD1[i]) { Inhibition1[i]='1'} else  {Inhibition1[i]='0'}
-  } 
-  
+  }
+
   for (i in (m+1):n)
   {
-    if (SSRT1[i]!= 'NA') {SSRT1[i]= -999}  
+    if (SSRT1[i]!= 'NA') {SSRT1[i]= -999}
     if (SSRT1SSD1[i] != 'NA')  {SSRT1SSD1[i]= -999}
-    if (SSD1[i] != 'NA')  {SSD1[i]= -999}  
-  } 
-  
+    if (SSD1[i] != 'NA')  {SSD1[i]= -999}
+  }
+
   SRRT1<-ifelse(TrialType1 %in% c('Stop(Failed)'), GORT1, SRRT0);
   GORT1<-ifelse(TrialType1 %in% c('Stop(Successful)','Stop(Failed)'), -999, GORT1);
-  
-  TrialType2<-recode(TrialType1, 'Stop(Successful)' = "Stop", 'Stop(Failed)' = "Stop", 'Go' = "Go")
-  
-  
+
+  TrialType2 <- recode(TrialType1, 'Stop(Successful)' = "Stop", 'Stop(Failed)' = "Stop", 'Go' = "Go")
+
   MAT1=matrix(c(id1, TrialType2, Inhibition1, GORT1, SSRT1,SRRT1, SSD1), nrow=length(GORT1));
   MAT11<-MAT1[sample(nrow(MAT1)),];
-  
-  colnames(MAT11)<- c( 'Participant.id', 'Trial','Inhibition', 'GORT', 'SSRT', 'SRRT','SSD');
-  
+
+  colnames(MAT11) <- c('Participant.id', 'Trial','Inhibition', 'GORT', 'SSRT', 'SRRT','SSD');
   return(MAT11)
 }
 
+##### Examples
 #Example1
 pid="John.Smith"
-n=50 
-m=10   
+n=50
+m=10
 SSD.b=200
 dist.go="ExG"
 theta.go=c(400,60,30)
 dist.stop="ExG"
 theta.stop=c(100,70,60)
-myblockSSTdata1<-SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
+myblockSSTdata1 <- SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
 
 #Example2
 pid="Jane.Smith"
-n=50 
-m=10   
+n=50
+m=10
 SSD.b=200
 dist.go="SW"
 theta.go=c(100,0.01,50)
@@ -107,8 +109,8 @@ myblockSSTdata2<-SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.s
 
 #Example3         <-create error !
 pid="Jane.Smith"
-n=50 
-m=10   
+n=50
+m=10
 SSD.b=200
 dist.go="LN"
 theta.go=c(100,0.01,50)
@@ -116,13 +118,21 @@ dist.stop="SW"
 theta.stop=c(75,0.01,100)
 myblockSSTdata3<-SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
 
+
+
+
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
 ################################################################################
 
 #[2] Step(2): Do for b blocks and ExG/SW distribution   (for either Go/Stop)   OK
 
 #block: a block name vector of size b blocks
 
-#pid: a vector of size b of Participant.id 
+#pid: a vector of size b of Participant.id
 #n :a vector of size b of total number of trials
 #m : a vector of size b of total number of stops
 
@@ -135,29 +145,37 @@ myblockSSTdata3<-SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.s
 #SSD.b:  a vector of size b of stop signal delay
 
 #Output: a giant matrix with "sum(n)" rows and (7+1) columns
- 
-SstSimulatedFixedSsd=function(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop) { 
-b<-length(block)
-csn<-c(0,cumsum(n))
-M1 = matrix(NA, nrow = sum(n), ncol = 8);  
-for(i in 1:b){
-M1[c((csn[i]+1):csn[i+1]),1]<-block[i];
-M1[c((csn[i]+1):csn[i+1]),c(2:8)]<- SstSimulatedFixedSsdBlock(pid[i],n[i],m[i],SSD.b[i],dist.go[i],theta.go[i,],dist.stop[i],theta.stop[i,]) 
-}  
-M1[,c(1,2)]<-M1[,c(2,1)]; 
-M11<-M1;
-colnames(M11)<-c('Participant.id','Block','Trial','Inhibition','GORT','SSRT','SRRT','SSD');
-return(M11);
+
+SstSimulatedFixedSsd <- function(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop) {
+
+  b <- length(block)
+  csn<-c(0,cumsum(n))
+  M1 = matrix(NA, nrow = sum(n), ncol = 8);
+
+  for(i in 1:b){
+    M1[c((csn[i]+1):csn[i+1]),1]<-block[i];
+    M1[c((csn[i]+1):csn[i+1]),c(2:8)]<- SstSimulatedFixedSsdBlock(pid[i],n[i],m[i],SSD.b[i],dist.go[i],theta.go[i,],dist.stop[i],theta.stop[i,])
+  }
+
+  M1[,c(1,2)]<-M1[,c(2,1)];
+  M11 <- M1;
+  colnames(M11)<-c('Participant.id','Block','Trial','Inhibition','GORT','SSRT','SRRT','SSD');
+
+  return(M11);
 }
 
+
+##############################################################################
+##############################################################################
+##############################################################################
 #Example1
 pid<-c("John.Smith","Jane.McDonald","Jane.McDonald")
 block<-c(1,1,2)
-n<-c(50,100,150) 
-m<-c(10,20,30)   
+n<-c(50,100,150)
+m<-c(10,20,30)
 SSD.b<-c(200,220,240)
 dist.go=c("ExG","ExG","ExG")
-theta.go= as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))) 
+theta.go= as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90)))
 dist.stop=c("ExG","ExG","ExG")
 theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70)))
 
@@ -166,11 +184,11 @@ mySSTdata1<-SstSimulatedFixedSsd(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.
 #Example2
 pid<-c("John.Smith","Jane.McDonald","Jane.McDonald")
 block<-c(1,1,2)
-n<-c(50,100,150) 
-m<-c(10,20,30)   
+n<-c(50,100,150)
+m<-c(10,20,30)
 SSD.b<-c(200,220,240)
 dist.go=c("ExG","ExG","ExG")
-theta.go= as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))) 
+theta.go= as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90)))
 dist.stop=c("SW","SW","SW")
 theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100)))
 
@@ -179,11 +197,11 @@ mySSTdata2<-SstSimulatedFixedSsd(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.
 #Example3  <--- produce error !
 pid<-c("John.Smith")
 block<-c(1)
-n<-c(50) 
-m<-c(10)   
+n<-c(50)
+m<-c(10)
 SSD.b<-c(200)
 dist.go=c("LN")
-theta.go= as.matrix.data.frame(rbind(c(400,60,30))) 
+theta.go= as.matrix.data.frame(rbind(c(400,60,30)))
 dist.stop=c("SW")
 theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100)))
 

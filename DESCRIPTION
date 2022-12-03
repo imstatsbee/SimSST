@@ -1,6 +1,6 @@
 Package: SimSST
 Title: Simulated Stop Signal Task Data
-Version: 0.0.1.0
+Version: 0.0.1.2
 Authors@R: 
     c(c(person("Mohsen", "Soltanifar", , "mohsen.soltanifar@mail.utoronto.ca", role = c("aut", "cre")), person("Chel Hee", "Lee", "chelhee.lee@ucalgary.ca", role="ctb") 
     ), c(person("Chel Hee", "Lee", , "chelhee.lee@ucalgary.ca", role="ctb")))

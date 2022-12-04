@@ -66,13 +66,13 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
   }
 
   if(dist.go=="SW" & dist.stop=="ExG"){
-    GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1)
-    SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)
+    GORT1 <- round(gamlss.dist::rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1)
+    SSRT1 <- round(gamlss.dist::rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)
   }
 
   if(dist.go=="SW" & dist.stop=="SW"){
-    GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1)
-    SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)
+    GORT1 <- round(gamlss.dist::rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1)
+    SSRT1 <- round(gamlss.dist::rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)
   }
 
 

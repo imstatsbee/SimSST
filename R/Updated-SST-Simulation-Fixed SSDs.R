@@ -1,31 +1,48 @@
-#[1] Step(1): Do for one block and ExG/SW distribution  (for either Go/Stop)   OK
-#[2] Step(2): Do for b blocks and ExG/SW distribution   (for either Go/Stop)   OK
+#
+# ./R/Updated-SST-Simulation-Fixed SSDs.R
+#
+# Chel Hee Lee & Mohsen Soltanifar
+# 2022-DEC-03
+#
+#
 
-
-################################################################################
-library(gamlss)
-library(dplyr)
-################################################################################
-
-################################################################################
 #[1] Step(1): Do for one block and ExG/SW distribution  (for either Go/Stop)   OK
 
+#' @title
+#' @description
+#'
+#' @param pid Participant.id
+#' @param n  total number of trials (positive integer)
+#' @param m  total number of stops  (positive integer)
+#' @param dist.go     distribution of go trials    (ExG or SW)
+#' @param dist.stop   distribution of stop.trials  (ExG or SW)
+#' @param theta.go c(mu.go,sigma.go,tau.go)
+#' @param theta.stop c(mu.stop,sigma.stop,tau.stop)
+#' @param SSD.b one block stop signal delay
+#' @examples
+#' ## Example1
+#' myblockSSTdata1 <- SstSimulatedFixedSsdBlock(pid="John.Smith", n=50, m=10,
+#'                       SSD.b=200, dist.go="ExG", theta.go=c(400,60,30),
+#'                       dist.stop="ExG", theta.stop=c(100,70,60))
+#' myblockSSTdata1
+#'
+#' ## Example2
+#' myblockSSTdata2 <- SstSimulatedFixedSsdBlock(pid="Jane.Smith", n=50, m=10,
+#'                       SSD.b=200, dist.go="SW", theta.go=c(100,0.01,50),
+#'                       dist.stop="SW", theta.stop=c(75,0.01,100))
+#' myblockSSTdata2
+#'
+#' ## Example3         <-create error !
+#' myblockSSTdata3 <- SstSimulatedFixedSsdBlock(pid="Jane.Smith", n=50, m=10,
+#'                       SSD.b=200, dist.go ="LN", theta.go=c(100,0.01,50),
+#'                       dist.stop="SW", theta.stop=c(75,0.01,100))
+#' myblockSSTdata3
+#'
+#' @returns
+#' @export
 
-#pid: Participant.id
-#n : total number of trials (positive integer)
-#m : total number of stops  (positive integer)
-
-#dist.go:     distribution of go trials    (ExG or SW)
-#dist.stop:   distribution of stop.trials  (ExG or SW)
-
-#theta.go=c(mu.go,sigma.go,tau.go)
-#theta.stop=c(mu.stop,sigma.stop,tau.stop)
-
-#SSD.b:  one block stop signal delay
-
-
-
-SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop){
+SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
+                                      dist.stop, theta.stop){
 
   SRRT0=-999
   SSD1=SSD.b
@@ -84,50 +101,8 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go, dist.
   return(MAT11)
 }
 
-##### Examples
-#Example1
-pid="John.Smith"
-n=50
-m=10
-SSD.b=200
-dist.go="ExG"
-theta.go=c(400,60,30)
-dist.stop="ExG"
-theta.stop=c(100,70,60)
-myblockSSTdata1 <- SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
 
-#Example2
-pid="Jane.Smith"
-n=50
-m=10
-SSD.b=200
-dist.go="SW"
-theta.go=c(100,0.01,50)
-dist.stop="SW"
-theta.stop=c(75,0.01,100)
-myblockSSTdata2<-SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
-
-#Example3         <-create error !
-pid="Jane.Smith"
-n=50
-m=10
-SSD.b=200
-dist.go="LN"
-theta.go=c(100,0.01,50)
-dist.stop="SW"
-theta.stop=c(75,0.01,100)
-myblockSSTdata3<-SstSimulatedFixedSsdBlock(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
-
-
-
-
-
-################################################################################
-################################################################################
-################################################################################
-################################################################################
-################################################################################
-
+#
 #[2] Step(2): Do for b blocks and ExG/SW distribution   (for either Go/Stop)   OK
 
 #block: a block name vector of size b blocks

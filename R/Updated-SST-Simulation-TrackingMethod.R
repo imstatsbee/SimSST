@@ -234,10 +234,10 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 ################################################################################
 #' @title
 #' @description
-#' [2] Step(2): Do for b blocks and ExG/SW distribution
+#' Step(2): Do for b blocks and ExG/SW distribution
 #' (for either Go/Stop)   OK
-#' block: a block name vector of size b blocks
 #'
+#' @param block: a block name vector of size b blocks
 #' @param pid: a vector of size b of Participant.id
 #' @param n :a vector of size b of total number of trials
 #' @param m : a vector of size b of total number of stops
@@ -249,47 +249,38 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #' @details SSD.b  a vector of size b of starting stop signal delay
 
 #' @returns Output a giant matrix with "sum(n)" rows and (7+1) columns
+#'
 #' #Example1
-#' pid<-c("John.Smith","Jane.McDonald","Jane.McDonald")
 #' block<-c(1,1,2)
-#' n<-c(50,100,150)
-#' m<-c(10,20,30)
-#' SSD.b<-c(200,220,240)
-#' dist.go=c("ExG","ExG","ExG")
-#' theta.go= as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90)))
-#' dist.stop=c("ExG","ExG","ExG")
-#' theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70)))
-#' mySSTdata1<-SstSimulatedTrackingMethod(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
+#' # FIXME:: this block parameter is not defined in this function
+#' mySSTdata1<-SstSimulatedTrackingMethod(
+#'     pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
+#'     n=c(50,100,150), m=c(10,20,30),
+#'     SSD.b=c(200,220,240), dist.go=c("ExG","ExG","ExG"),
+#'     theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
+#'     dist.stop=c("ExG","ExG","ExG"),
+#'     theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))))
+#' mySSTdata1
 #'
-#'  #Example2
-#'  pid<-c("John.Smith","Jane.McDonald","Jane.McDonald")
-#'  block<-c(1,1,2)
-#'  n<-c(50,100,150)
-#'  m<-c(10,20,30)
-#'  SSD.b<-c(200,220,240)
-#'  dist.go=c("ExG","ExG","ExG")
-#'  theta.go= as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90)))
-#'  dist.stop=c("SW","SW","SW")
-#'  theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100)))
+#' #Example2
+#' block<-c(1,1,2)
+#' mySSTdata2 <- SstSimulatedTrackingMethod(
+#'   pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
+#'   n=c(50,100,150), m=c(10,20,30), SSD.b = c(200,220,240),
+#'   dist.go=c("ExG","ExG","ExG"),
+#'   theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
+#'   dist.stop=c("SW","SW","SW"),
+#'   theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))))
+#' mySSTdata2
 #'
-#'   mySSTdata2 <- SstSimulatedTrackingMethod(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop)
+#' # Example3  <--- produce error !
 #'
-#'
-#'
-#'  #
-#'  # Example3  <--- produce error !
-#'  #
-#'  pid<-c("John.Smith")
-#'  block<-c(1)
-#'  n<-c(50)
-#'  m<-c(10)
-#'  SSD.b<-c(200)
-#'  dist.go=c("LN")
-#'  theta.go= as.matrix.data.frame(rbind(c(400,60,30)))
-#'  dist.stop=c("SW")
-#'  theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100)))
-#'
-#'  mySSTdata3 <- SstSimulatedTrackingMethod(pid, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
+#' mySSTdata3 <- SstSimulatedTrackingMethod(pid="John.Smith", n=c(1), m=c(50),
+#'    SSD.b=c(200), dist.go=c("LN"),
+#'    theta.go=as.matrix.data.frame(rbind(c(400,60,30))),
+#'    dist.stop=c("SW"),
+#'    theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))))
+#' mySSTdata3
 #'
 #'
 #' @export
@@ -300,17 +291,18 @@ SstSimulatedTrackingMethod <- function(pid, n, m, SSD.b, dist.go, theta.go,
 
   b<-length(block)
   csn<-c(0,cumsum(n))
-  M2 = matrix(NA, nrow = sum(n), ncol = 8);
+  M2 = matrix(NA, nrow = sum(n), ncol = 8)
+
   for(i in 1:b){
-    M2[c((csn[i]+1):csn[i+1]),1]<-block[i];
-    M2[c((csn[i]+1):csn[i+1]),c(2:8)]<- SstSimulatedTrackingMethodBlock(pid[i],n[i],m[i],SSD.b[i],dist.go[i],theta.go[i,],dist.stop[i],theta.stop[i,])
+    M2[c((csn[i]+1):csn[i+1]),1] <- block[i]
+    M2[c((csn[i]+1):csn[i+1]),c(2:8)] <- SstSimulatedTrackingMethodBlock(pid[i],n[i],m[i],SSD.b[i],dist.go[i],theta.go[i,],dist.stop[i],theta.stop[i,])
   }
-  M2[,c(1,2)]<-M2[,c(2,1)];
-  M22<-M2;
-  colnames(M22)<-c('Participant.id','Block','Trial','Inhibition','GORT','SSRT','SRRT','SSD');
-  return(M22);
+
+  M2[,c(1,2)] <- M2[,c(2,1)]
+  M22 <- M2
+  colnames(M22) <- c('Participant.id','Block','Trial','Inhibition','GORT','SSRT','SRRT','SSD')
+
+  return(M22)
 }
 
-
-################################################################################
 

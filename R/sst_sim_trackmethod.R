@@ -207,7 +207,7 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
   SRRT <- ifelse(TrialType %in% c('Stop(Failed)'), GORT, SRRT0)
   GORT <- ifelse(TrialType %in% c('Stop(Successful)','Stop(Failed)'), -999, GORT)
 
-  TrialTypee <- recode(TrialType, 'Stop(Successful)' = "Stop", 'Stop(Failed)' = "Stop", 'Go' = "Go")
+  TrialTypee <- dplyr::recode(TrialType, 'Stop(Successful)' = "Stop", 'Stop(Failed)' = "Stop", 'Go' = "Go")
   MAT2 <- matrix(c(id , TrialTypee, Inhibition , GORT , SSRT ,SRRT , SSD ), nrow=length(GORT ))
 
   MAT22 <- matrix(NA,ncol = 7, nrow=length(GORT ))

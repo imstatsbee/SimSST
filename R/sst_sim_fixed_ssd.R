@@ -113,7 +113,7 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
   SRRT1 <- ifelse(TrialType1 %in% c('Stop(Failed)'), GORT1, SRRT0)
   GORT1 <- ifelse(TrialType1 %in% c('Stop(Successful)','Stop(Failed)'), -999, GORT1)
 
-  TrialType2 <- recode(TrialType1, 'Stop(Successful)' = "Stop", 'Stop(Failed)' = "Stop", 'Go' = "Go")
+  TrialType2 <- dplyr::recode(TrialType1, 'Stop(Successful)' = "Stop", 'Stop(Failed)' = "Stop", 'Go' = "Go")
 
   MAT1 <- matrix(c(id1, TrialType2, Inhibition1, GORT1, SSRT1,SRRT1, SSD1), nrow=length(GORT1))
   MAT11 <- MAT1[sample(nrow(MAT1)),]

@@ -7,7 +7,7 @@
 
 #' @title One Block Model
 #' @description Step(1): Do for one block and ExG/SW distribution
-#' (for either Go/Stop)   OK
+#' (for either Go/Stop). ExG: exponentially modified Gaussian, SW: Shifted Wald distribution
 #' @details
 #' @param pid Participant.id
 #' @param n total number of trials (positive integer)
@@ -280,9 +280,9 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 SstSimulatedTrackingMethod <- function(pid, n, m, SSD.b, dist.go, theta.go,
                                        dist.stop, theta.stop) {
 
-  b<-length(block)
-  csn<-c(0,cumsum(n))
-  M2 = matrix(NA, nrow = sum(n), ncol = 8)
+  b <- length(block)
+  csn <- c(0,cumsum(n))
+  M2 <- matrix(NA, nrow = sum(n), ncol = 8)
 
   for(i in 1:b){
     M2[c((csn[i]+1):csn[i+1]),1] <- block[i]

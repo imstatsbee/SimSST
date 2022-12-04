@@ -44,8 +44,8 @@
 SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
                                       dist.stop, theta.stop){
 
-  SRRT0=-999
-  SSD1=SSD.b
+  SRRT0 <- -999 # ???
+  SSD1 <- SSD.b
   id1 <- as.vector(matrix(pid,nrow=1,ncol = n))
 
   if(!(dist.go %in% c("ExG", "SW"))) {
@@ -77,11 +77,11 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 
 
   SSRT1SSD1 <- SSRT1+SSD1
-  SSD1<-as.vector(matrix(SSD1,nrow=1,ncol = n))
-  SRRT1<-as.vector(matrix(SRRT0,nrow=1,ncol=n))
+  SSD1 <- as.vector(matrix(SSD1,nrow=1,ncol = n))
+  SRRT1 <- as.vector(matrix(SRRT0,nrow=1,ncol=n))
 
-  TrialType1 <-as.vector(matrix('Go',nrow=1,ncol = n))
-  Inhibition1 <-as.vector(matrix('-999',nrow=1,ncol = n))
+  TrialType1 <- as.vector(matrix('Go',nrow=1,ncol = n))
+  Inhibition1 <- as.vector(matrix('-999',nrow=1,ncol = n))
 
   for (i in 1:m)
   {
@@ -175,12 +175,12 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 SstSimulatedFixedSsd <- function(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop) {
 
   b <- length(block)
-  csn<-c(0,cumsum(n))
+  csn <- c(0,cumsum(n))
   M1 <- matrix(NA, nrow = sum(n), ncol = 8)
 
   for(i in 1:b){
-    M1[c((csn[i]+1):csn[i+1]),1]<-block[i]
-    M1[c((csn[i]+1):csn[i+1]),c(2:8)]<- SstSimulatedFixedSsdBlock(pid[i],n[i],m[i],SSD.b[i],dist.go[i],theta.go[i,],dist.stop[i],theta.stop[i,])
+    M1[c((csn[i]+1):csn[i+1]),1] <- block[i]
+    M1[c((csn[i]+1):csn[i+1]),c(2:8)] <- SstSimulatedFixedSsdBlock(pid[i],n[i],m[i],SSD.b[i],dist.go[i],theta.go[i,],dist.stop[i],theta.stop[i,])
   }
 
   M1[,c(1,2)] <- M1[,c(2,1)]

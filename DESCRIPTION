@@ -1,6 +1,6 @@
 Package: SimSST
 Title: Simulated Stop Signal Task Data
-Version: 0.0.1.4
+Version: 0.0.1.5
 Authors@R: 
     c(c(person("Mohsen", "Soltanifar", , "mohsen.soltanifar@mail.utoronto.ca", role = c("aut", "cre")), person("Chel Hee", "Lee", "chelhee.lee@ucalgary.ca", role="ctb") 
     ), c(person("Chel Hee", "Lee", , "chelhee.lee@ucalgary.ca", role="ctb")))
@@ -9,3 +9,6 @@ License: `use_mit_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Imports:
+  dplyr, 
+  gamlss

@@ -1,3 +1,9 @@
+#
+# ./R/Updated-SST-Simulation-TrackingMethod.R
+#
+# Chel Hee Lee & Mohsen Soltanifar
+# 2022-DEC-03
+#
 #[1] Step(1): Do for one block and ExG/SW distribution  (for either Go/Stop)   OK
 #[2] Step(2): Do for b blocks and ExG/SW distribution   (for either Go/Stop)   OK
 

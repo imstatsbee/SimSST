@@ -242,26 +242,25 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #' @returns Output a giant matrix with "sum(n)" rows and (7+1) columns
 #' @examples
 #' #Example1
-#' block<-c(1,1,2)
-#' # FIXME:: this block parameter is not defined in this function
 #' mySSTdata1<-SstSimulatedTrackingMethod(
 #'     pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
 #'     n=c(50,100,150), m=c(10,20,30),
 #'     SSD.b=c(200,220,240), dist.go=c("ExG","ExG","ExG"),
 #'     theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
 #'     dist.stop=c("ExG","ExG","ExG"),
-#'     theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))))
+#'     theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))),
+#'     block=c(1,1,2))
 #' mySSTdata1
 #'
 #' #Example2
-#' block<-c(1,1,2)
 #' mySSTdata2 <- SstSimulatedTrackingMethod(
 #'   pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
 #'   n=c(50,100,150), m=c(10,20,30), SSD.b = c(200,220,240),
 #'   dist.go=c("ExG","ExG","ExG"),
 #'   theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
 #'   dist.stop=c("SW","SW","SW"),
-#'   theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))))
+#'   theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))),
+#'   block=c(1,1,2))
 #' mySSTdata2
 #'
 #' # Example3  <--- produce error !
@@ -270,7 +269,8 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #'    SSD.b=c(200), dist.go=c("LN"),
 #'    theta.go=as.matrix.data.frame(rbind(c(400,60,30))),
 #'    dist.stop=c("SW"),
-#'    theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))))
+#'    theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))),
+#'    block=c(1))
 #' mySSTdata3
 #'
 #'
@@ -278,7 +278,7 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #'
 
 SstSimulatedTrackingMethod <- function(pid, n, m, SSD.b, dist.go, theta.go,
-                                       dist.stop, theta.stop) {
+                                       dist.stop, theta.stop, block) {
 
   b <- length(block)
   csn <- c(0,cumsum(n))

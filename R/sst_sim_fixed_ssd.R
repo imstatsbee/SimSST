@@ -147,7 +147,8 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #'  dist.go=c("ExG","ExG","ExG"),
 #'  theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
 #'  dist.stop=c("ExG","ExG","ExG"),
-#'  theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))))
+#'  theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))),
+#'  block=c(1,1,2))
 #' mySSTdata1
 #'
 #' ## Example2
@@ -157,7 +158,8 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #'   dist.go=c("ExG","ExG","ExG"),
 #'   theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
 #'   dist.stop=c("SW","SW","SW"),
-#'   theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))))
+#'   theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))),
+#'   block=c(1,1,2))
 #' mySSTdata2
 #'
 #' ## Example3  <--- produce error !
@@ -167,12 +169,13 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #'     dist.go=c("LN"),
 #'     theta.go=as.matrix.data.frame(rbind(c(400,60,30))),
 #'     dist.stop=c("SW"),
-#'     theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))))
+#'     theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))),
+#'     block=c(1))
 #' mySSTdata3
 #'
 #' @export
 
-SstSimulatedFixedSsd <- function(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop) {
+SstSimulatedFixedSsd <- function(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.stop, block) {
 
   b <- length(block)
   csn <- c(0,cumsum(n))

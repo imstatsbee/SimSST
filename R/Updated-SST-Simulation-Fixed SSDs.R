@@ -4,21 +4,22 @@
 # Chel Hee Lee & Mohsen Soltanifar
 # 2022-DEC-03
 #
-#
 
-#[1] Step(1): Do for one block and ExG/SW distribution  (for either Go/Stop)   OK
-
-#' @title
-#' @description
-#'
-#' @param pid Participant.id
-#' @param n  total number of trials (positive integer)
-#' @param m  total number of stops  (positive integer)
-#' @param dist.go     distribution of go trials    (ExG or SW)
-#' @param dist.stop   distribution of stop.trials  (ExG or SW)
+#' @title One Block Model
+#' @description Step(1): Do for one block and ExG/SW distribution
+#' (for either Go/Stop)   OK
+#' @details
+#' @param pid Participant id
+#' @param n total number of trials (positive integer)
+#' @param m total number of stops  (positive integer)
+#' @param dist.go distribution of go trials (ExG or SW)
+#' @param dist.stop distribution of stop.trials (ExG or SW)
 #' @param theta.go c(mu.go,sigma.go,tau.go)
 #' @param theta.stop c(mu.stop,sigma.stop,tau.stop)
 #' @param SSD.b one block stop signal delay
+#' @references
+#' @author
+#' @returns MAT11
 #' @examples
 #' ## Example1
 #' myblockSSTdata1 <- SstSimulatedFixedSsdBlock(pid="John.Smith", n=50, m=10,
@@ -38,7 +39,6 @@
 #'                       dist.stop="SW", theta.stop=c(75,0.01,100))
 #' myblockSSTdata3
 #'
-#' @returns
 #' @export
 
 SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
@@ -48,62 +48,84 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
   SSD1=SSD.b
   id1 <- as.vector(matrix(pid,nrow=1,ncol = n))
 
-  if(!(dist.go %in% c("ExG", "SW"))) {warning("This is incorrect Go distribution!") & break}
-  if(!(dist.stop %in% c("ExG", "SW"))) {warning("This is incorrect Stop distribution!") & break}
+  if(!(dist.go %in% c("ExG", "SW"))) {
+    warning("This is incorrect Go distribution!") & break
+  }
+  if(!(dist.stop %in% c("ExG", "SW"))) {
+    warning("This is incorrect Stop distribution!") & break
+  }
 
   if(dist.go=="ExG" & dist.stop=="ExG"){
     GORT1 <- round(rexGAUS(n, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]), digits = 1)
     SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)
-    }
+  }
 
   if(dist.go=="ExG" & dist.stop=="SW"){
-    GORT1 <- round(rexGAUS(n, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]), digits = 1);
-    SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)}
+    GORT1 <- round(rexGAUS(n, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]), digits = 1)
+    SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)
+  }
 
   if(dist.go=="SW" & dist.stop=="ExG"){
-    GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1) ;
-    SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)}
+    GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1)
+    SSRT1 <- round(rexGAUS(n, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]), digits = 1)
+  }
 
   if(dist.go=="SW" & dist.stop=="SW"){
-    GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1) ;
-    SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)}
+    GORT1 <- round(rIG(n, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3], digits = 1)
+    SSRT1 <- round(rIG(n, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3], digits = 1)
+  }
 
 
-  SSRT1SSD1 <- SSRT1+SSD1;
-  SSD1<-as.vector(matrix(SSD1,nrow=1,ncol = n));
-  SRRT1<-as.vector(matrix(SRRT0,nrow=1,ncol=n));
+  SSRT1SSD1 <- SSRT1+SSD1
+  SSD1<-as.vector(matrix(SSD1,nrow=1,ncol = n))
+  SRRT1<-as.vector(matrix(SRRT0,nrow=1,ncol=n))
 
-  TrialType1 <-as.vector(matrix('Go',nrow=1,ncol = n));
-  Inhibition1 <-as.vector(matrix('-999',nrow=1,ncol = n));
+  TrialType1 <-as.vector(matrix('Go',nrow=1,ncol = n))
+  Inhibition1 <-as.vector(matrix('-999',nrow=1,ncol = n))
 
   for (i in 1:m)
   {
-    if (GORT1[i] > SSRT1SSD1[i]) { TrialType1[i]='Stop(Successful)'} else  {TrialType1[i]='Stop(Failed)'}
-    if (GORT1[i] > SSRT1SSD1[i]) { Inhibition1[i]='1'} else  {Inhibition1[i]='0'}
+    if (GORT1[i] > SSRT1SSD1[i]) {
+      TrialType1[i]='Stop(Successful)'
+    } else  {
+      TrialType1[i]='Stop(Failed)'
+    }
+    if (GORT1[i] > SSRT1SSD1[i]) {
+      Inhibition1[i]='1'
+    } else  {
+      Inhibition1[i]='0'
+    }
   }
 
   for (i in (m+1):n)
   {
-    if (SSRT1[i]!= 'NA') {SSRT1[i]= -999}
-    if (SSRT1SSD1[i] != 'NA')  {SSRT1SSD1[i]= -999}
-    if (SSD1[i] != 'NA')  {SSD1[i]= -999}
+    if (SSRT1[i]!= 'NA') {
+      SSRT1[i]= -999
+    }
+    if (SSRT1SSD1[i] != 'NA')  {
+      SSRT1SSD1[i]= -999
+    }
+    if (SSD1[i] != 'NA')  {
+      SSD1[i]= -999
+    }
   }
 
-  SRRT1<-ifelse(TrialType1 %in% c('Stop(Failed)'), GORT1, SRRT0);
-  GORT1<-ifelse(TrialType1 %in% c('Stop(Successful)','Stop(Failed)'), -999, GORT1);
+  SRRT1 <- ifelse(TrialType1 %in% c('Stop(Failed)'), GORT1, SRRT0)
+  GORT1 <- ifelse(TrialType1 %in% c('Stop(Successful)','Stop(Failed)'), -999, GORT1)
 
   TrialType2 <- recode(TrialType1, 'Stop(Successful)' = "Stop", 'Stop(Failed)' = "Stop", 'Go' = "Go")
 
-  MAT1=matrix(c(id1, TrialType2, Inhibition1, GORT1, SSRT1,SRRT1, SSD1), nrow=length(GORT1));
-  MAT11<-MAT1[sample(nrow(MAT1)),];
+  MAT1 <- matrix(c(id1, TrialType2, Inhibition1, GORT1, SSRT1,SRRT1, SSD1), nrow=length(GORT1))
+  MAT11 <- MAT1[sample(nrow(MAT1)),]
 
-  colnames(MAT11) <- c('Participant.id', 'Trial','Inhibition', 'GORT', 'SSRT', 'SRRT','SSD');
+  colnames(MAT11) <- c('Participant.id', 'Trial','Inhibition', 'GORT', 'SSRT', 'SRRT','SSD')
+
   return(MAT11)
 }
 
-#' @title
-#' @description
-#' [2] Step(2): Do for b blocks and ExG/SW distribution   (for either Go/Stop)   OK
+#' @title B Blocks Model
+#' @description Step(2): Do for b blocks and ExG/SW distribution
+#' (for either Go/Stop)   OK
 #' @param block a block name vector of size b blocks
 #' @param pid: a vector of size b of Participant.id
 #' @param n :a vector of size b of total number of trials
@@ -113,7 +135,9 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #' @param theta.go=c(mu.go,sigma.go,tau.go)   a b*3 matrix
 #' @param theta.stop=c(mu.stop,sigma.stop,tau.stop)   a b*3 matrix
 #' @param SSD.b:  a vector of size b of stop signal delay
-#' @returns
+#' @author
+#' @references
+#' @returns M11
 #' Output: a giant matrix with "sum(n)" rows and (7+1) columns
 #' @examples
 #' ## Example1
@@ -152,17 +176,17 @@ SstSimulatedFixedSsd <- function(pid,n,m,SSD.b,dist.go,theta.go,dist.stop,theta.
 
   b <- length(block)
   csn<-c(0,cumsum(n))
-  M1 = matrix(NA, nrow = sum(n), ncol = 8);
+  M1 <- matrix(NA, nrow = sum(n), ncol = 8)
 
   for(i in 1:b){
-    M1[c((csn[i]+1):csn[i+1]),1]<-block[i];
+    M1[c((csn[i]+1):csn[i+1]),1]<-block[i]
     M1[c((csn[i]+1):csn[i+1]),c(2:8)]<- SstSimulatedFixedSsdBlock(pid[i],n[i],m[i],SSD.b[i],dist.go[i],theta.go[i,],dist.stop[i],theta.stop[i,])
   }
 
-  M1[,c(1,2)]<-M1[,c(2,1)];
-  M11 <- M1;
-  colnames(M11)<-c('Participant.id','Block','Trial','Inhibition','GORT','SSRT','SRRT','SSD');
+  M1[,c(1,2)] <- M1[,c(2,1)]
+  M11 <- M1
+  colnames(M11) <- c('Participant.id','Block','Trial','Inhibition','GORT','SSRT','SRRT','SSD')
 
-  return(M11);
+  return(M11)
 }
 

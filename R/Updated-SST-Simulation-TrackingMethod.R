@@ -4,22 +4,11 @@
 # Chel Hee Lee & Mohsen Soltanifar
 # 2022-DEC-03
 #
-#[1] Step(1): Do for one block and ExG/SW distribution  (for either Go/Stop)   OK
-#[2] Step(2): Do for b blocks and ExG/SW distribution   (for either Go/Stop)   OK
 
-################################################################################
-library(gamlss)
-library(dplyr)
-################################################################################
-
-################################################################################
-################################################################################
-#' @title
-#' @description
-#' [1] Step(1): Do for one block and ExG/SW distribution
+#' @title One Block Model
+#' @description Step(1): Do for one block and ExG/SW distribution
 #' (for either Go/Stop)   OK
 #' @details
-#'
 #' @param pid Participant.id
 #' @param n total number of trials (positive integer)
 #' @param m total number of stops  (positive integer)
@@ -28,9 +17,9 @@ library(dplyr)
 #' @param theta.go c(mu.go,sigma.go,tau.go)
 #' @param theta.stop c(mu.stop,sigma.stop,tau.stop)
 #' @param SSD.b one block starting stop signal delay
-#'
-#' @returns
-#'
+#' @references
+#' @author
+#' @returns MAT22
 #' @examples
 #' ##
 #' ## Example1
@@ -235,27 +224,23 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 }
 
 
-
-
-################################################################################
-#' @title
-#' @description
-#' Step(2): Do for b blocks and ExG/SW distribution
+#' @title B Blocks Model
+#' @description Step(2): Do for b blocks and ExG/SW distribution
 #' (for either Go/Stop)   OK
-#'
-#' @param block: a block name vector of size b blocks
-#' @param pid: a vector of size b of Participant.id
-#' @param n :a vector of size b of total number of trials
-#' @param m : a vector of size b of total number of stops
-#' @param dist.go:  a vector of size b of   distribution of go trials    (ExG or SW)
-#' @param dist.stop: a vector of size b of   distribution of stop.trials  (ExG or SW)
-#' @param theta.go=c(mu.go,sigma.go,tau.go)   a b*3 matrix
-#' @param theta.stop=c(mu.stop,sigma.stop,tau.stop)   a b*3 matrix
-#'
-#' @details SSD.b  a vector of size b of starting stop signal delay
-
+#' @details
+#' @param block a block name vector of size b blocks
+#' @param pid a vector of size b of Participant.id
+#' @param n a vector of size b of total number of trials
+#' @param m a vector of size b of total number of stops
+#' @param dist.go  a vector of size b of   distribution of go trials    (ExG or SW)
+#' @param dist.stop a vector of size b of   distribution of stop.trials  (ExG or SW)
+#' @param theta.go c(mu.go,sigma.go,tau.go)   a b*3 matrix
+#' @param theta.stop c(mu.stop,sigma.stop,tau.stop)   a b*3 matrix
+#' @param SSD.b  a vector of size b of starting stop signal delay
+#' @author
+#' @references
 #' @returns Output a giant matrix with "sum(n)" rows and (7+1) columns
-#'
+#' @examples
 #' #Example1
 #' block<-c(1,1,2)
 #' # FIXME:: this block parameter is not defined in this function
@@ -310,5 +295,4 @@ SstSimulatedTrackingMethod <- function(pid, n, m, SSD.b, dist.go, theta.go,
 
   return(M22)
 }
-
 

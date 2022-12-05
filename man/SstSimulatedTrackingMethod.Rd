@@ -37,13 +37,13 @@ SstSimulatedTrackingMethod(
 
 \item{SSD.b}{a vector of size b of starting stop signal delay}
 
-\item{dist.go}{a vector of size b of   distribution of go trials    (ExG or SW)}
+\item{dist.go}{a vector of size b of distribution of go trials (ExG or SW)}
 
-\item{theta.go}{c(mu.go,sigma.go,tau.go)   a b*3 matrix}
+\item{theta.go}{c(mu.go,sigma.go,tau.go), a b*3 matrix}
 
-\item{dist.stop}{a vector of size b of   distribution of stop.trials  (ExG or SW)}
+\item{dist.stop}{a vector of size b of distribution of stop.trials (ExG or SW)}
 
-\item{theta.stop}{c(mu.stop,sigma.stop,tau.stop)   a b*3 matrix}
+\item{theta.stop}{c(mu.stop,sigma.stop,tau.stop), a b*3 matrix}
 
 \item{block}{a block name vector of size b blocks}
 }
@@ -51,10 +51,7 @@ SstSimulatedTrackingMethod(
 Output a giant matrix with "sum(n)" rows and (7+1) columns
 }
 \description{
-This function simulates only one block of stop signal task trials for one participant using tracking method. Note that 'ExG' implies exponentially modified Gaussian and'SW' implies Shifted Wald distribution.
-}
-\details{
-This function simulates b>=1 blocks of stop signal task trials for several participants using tracking method.
+This function simulates b>=1 blocks of stop signal task trials for several participants using tracking method. Note that 'ExG' implies exponentially modified Gaussian and'SW' implies Shifted Wald distribution.
 }
 \examples{
 #Example1

@@ -12,7 +12,7 @@ ssd method and the tracking method.
 
 ## Installation
 
-You can install the development version of descfarspkg with:
+You can install the development version of SimSST with:
 
 ``` r
 library(gamlss.dist)

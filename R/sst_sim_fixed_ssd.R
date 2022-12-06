@@ -5,16 +5,16 @@
 # 2022-DEC-03
 #
 
-#' @rdname SstSimulatedFixedSsd
+#' @rdname simssfixed
 # @examples
 # ## Example1
-# myblockSSTdata1 <- SstSimulatedFixedSsdBlock(pid="John.Smith", n=50, m=10,
+# myblockSSTdata1 <- simssfixed0(pid="John.Smith", n=50, m=10,
 #                       SSD.b=200, dist.go="ExG", theta.go=c(400,60,30),
 #                       dist.stop="ExG", theta.stop=c(100,70,60))
 # myblockSSTdata1
 #
 # ## Example2
-# myblockSSTdata2 <- SstSimulatedFixedSsdBlock(pid="Jane.Smith", n=50, m=10,
+# myblockSSTdata2 <- simssfixed0(pid="Jane.Smith", n=50, m=10,
 #                       SSD.b=200, dist.go="SW", theta.go=c(100,0.01,50),
 #                       dist.stop="SW", theta.stop=c(75,0.01,100))
 # myblockSSTdata2
@@ -22,13 +22,13 @@
 #
 # ## Example3         <-create error !
 #\dontrun{
-# myblockSSTdata3 <- SstSimulatedFixedSsdBlock(pid="Jane.Smith", n=50, m=10,
+# myblockSSTdata3 <- simssfixed0(pid="Jane.Smith", n=50, m=10,
 #                       SSD.b=200, dist.go ="LN", theta.go=c(100,0.01,50),
 #                       dist.stop="SW", theta.stop=c(75,0.01,100))
 # myblockSSTdata3
 #}
 
-SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
+simssfixed0 <- function(pid, n, m, SSD.b, dist.go, theta.go,
                                       dist.stop, theta.stop){
 
   SRRT0 <- -999 # ???
@@ -98,7 +98,7 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
   return(MAT11)
 }
 
-#' @rdname SstSimulatedFixedSsd
+#' @rdname simssfixed
 #' @title Simulatng SSRT data using fixed SSD methods
 #' @description This function simulates b>=1 blocks of stop signal task trials for several participants using fixed SSD method.
 #' @param block a block name vector of size b blocks
@@ -112,9 +112,15 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #' @param SSD.b a vector of size b of stop signal delay
 #' @returns M11
 #' Output: a giant matrix with "sum(n)" rows and (7+1) columns
+#' @references
+#' Gordon D. Logan. On the Ability to Inhibit Thought and Action: A User's Guide to the Stop Signal Paradigm. In D. Dagenbach, & T.H. Carr (Eds.), Inhibitory Process in Attention, Memory and Language. San Diego: Academic Press, 1994.
+#' Dora Matzke, Jonathon Love, Thomas V. Wiecki, Scott D. Brown, and et al. Release the BEESTS: Bayesian Estimation of Ex-Gaussian Stop Signal Reaction Times Distributions. Frontiers in Psychology, 4: Article 918, 2013.
+#' Royce Andres, F. Xavier Alario, and Leendert Van Maanen. The Shifted Wald Distribution for Response Time Data Analysis. Psychological Methods, 21(3): 309-327, 2016.
+#' Andrew Heathcote. RTSYS: A DOS Application for the Analysis of Reaction Time Data, Behavior Research Methods, Instruments, & Computers, 28(3): 427-445, 1996.
+#' Mohsen Soltanifar. Stop Signal Reaction Times: New Estimations with Longitudinal, Bayesian and Time  Series based Methods, PhD Dissertation, Biostatistics Division, Dalla Lana School of Public Health, University of Toronto, Toronto, Canada, 2020.
 #' @examples
 #' ## Example1
-#' mySSTdata1 <- SstSimulatedFixedSsd(
+#' mySSTdata1 <- simssfixed(
 #'  pid = c("John.Smith","Jane.McDonald","Jane.McDonald"),
 #'  n = c(50,100,150), m=c(10,20,30), SSD.b=c(200,220,240),
 #'  dist.go=c("ExG","ExG","ExG"),
@@ -125,7 +131,7 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #' mySSTdata1
 #'
 #' ## Example2
-#' mySSTdata2 <- SstSimulatedFixedSsd(
+#' mySSTdata2 <- simssfixed(
 #'   pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
 #'   n=c(50,100,150), m=c(10,20,30), SSD.b=c(200,220,240),
 #'   dist.go=c("ExG","ExG","ExG"),
@@ -137,7 +143,7 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #'
 #' ## Example3
 #' \dontrun{ ## this expected to produce an error
-#' mySSTdata3 <- SstSimulatedFixedSsd(
+#' mySSTdata3 <- simssfixed(
 #'     pid=c("John.Smith"),
 #'     n=c(50), m=c(10), SSD.b=c(200),
 #'     dist.go=c("LN"),
@@ -149,7 +155,8 @@ SstSimulatedFixedSsdBlock <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #' }
 #' @export
 
-SstSimulatedFixedSsd <- function(pid, n, m, SSD.b,
+# SstSimulatedFixedSsd
+simssfixed <- function(pid, n, m, SSD.b,
                                  dist.go, theta.go,
                                  dist.stop, theta.stop,
                                  block) {
@@ -160,7 +167,7 @@ SstSimulatedFixedSsd <- function(pid, n, m, SSD.b,
 
   for(i in 1:b){
     M1[c((csn[i]+1):csn[i+1]),1] <- block[i]
-    M1[c((csn[i]+1):csn[i+1]),c(2:8)] <- SstSimulatedFixedSsdBlock(pid=pid[i], n=n[i], m=m[i], SSD.b=SSD.b[i], dist.go=dist.go[i], theta.go=theta.go[i,], dist.stop=dist.stop[i], theta.stop=theta.stop[i,])
+    M1[c((csn[i]+1):csn[i+1]),c(2:8)] <- simssfixed0(pid=pid[i], n=n[i], m=m[i], SSD.b=SSD.b[i], dist.go=dist.go[i], theta.go=theta.go[i,], dist.stop=dist.stop[i], theta.stop=theta.stop[i,])
   }
 
   M1[,c(1,2)] <- M1[,c(2,1)]

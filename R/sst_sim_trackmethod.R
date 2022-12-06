@@ -5,12 +5,12 @@
 # 2022-DEC-03
 #
 
-#' @rdname SstSimulatedTrackingMethod
+#' @rdname simsstrack
 # @examples
 # ##
 # ## Example1
 # ##
-# myblockSSTdata1 <- SstSimulatedTrackingMethodBlock(
+# myblockSSTdata1 <- simsstrack0(
 #     pid="John.Smith", n=50, m=10, SSD.b=200, dist.go="ExG,
 #     theta.go=c(400,60,), dist.stop="ExG", theta.stop=c(100,70,60))
 # myblockSSTdata1
@@ -19,7 +19,7 @@
 # ## Example2
 # ##
 #
-# myblockSSTdata2 <- SstSimulatedTrackingMethodBlock(
+# myblockSSTdata2 <- simsstrack0(
 #      pid="Jane.Smith", n=50, m=10, SSD.b=200, dist.go="SW",
 #      theta.go=c(100,0.01,50), dist.stop="SW", theta.stop=c(75,0.01,100))
 # myblockSSTdata2
@@ -29,14 +29,14 @@
 # ## This example is expected to created an error
 # ##
 # \dontrun{
-# myblockSSTdata3 <- SstSimulatedTrackingMethodBlock(
+# myblockSSTdata3 <- simsstrack0(
 # pid="Jane.Smith", n=50, m=10, SSD.b=200, dist.go="LN",
 # theta.go=c(100,0.01,50), dist.stop="SW", theta.stop=c(75,0.01,100))
 # myblockSSTdata3
 # }
 #
 
-SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
+simsstrack0 <- function(pid, n, m, SSD.b,
                                             dist.go, theta.go,
                                             dist.stop, theta.stop)
 {
@@ -167,7 +167,7 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 }
 
 
-#' @rdname SstSimulatedTrackingMethod
+#' @rdname simsstrack
 #' @title Simulating SSRT data using tracking method
 #' @description This function simulates b>=1 blocks of stop signal task trials for several participants using tracking method. Note that 'ExG' implies exponentially modified Gaussian and'SW' implies Shifted Wald distribution.
 #' @param pid a vector of size b of Participant.id
@@ -182,7 +182,7 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #' @returns Output a giant matrix with "sum(n)" rows and (7+1) columns
 #' @examples
 #' #Example1
-#' mySSTdata1<-SstSimulatedTrackingMethod(
+#' mySSTdata1 <- simsstrack(
 #'     pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
 #'     n=c(50,100,150), m=c(10,20,30),
 #'     SSD.b=c(200,220,240), dist.go=c("ExG","ExG","ExG"),
@@ -193,7 +193,7 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #' mySSTdata1
 #'
 #' #Example2
-#' mySSTdata2 <- SstSimulatedTrackingMethod(
+#' mySSTdata2 <- simsstrack(
 #'   pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
 #'   n=c(50,100,150), m=c(10,20,30), SSD.b = c(200,220,240),
 #'   dist.go=c("ExG","ExG","ExG"),
@@ -205,7 +205,7 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #'
 #' # Example3  <--- produce error !
 #' \dontrun{
-#' mySSTdata3 <- SstSimulatedTrackingMethod(pid="John.Smith", n=c(1), m=c(50),
+#' mySSTdata3 <- simsstrack(pid="John.Smith", n=c(1), m=c(50),
 #'    SSD.b=c(200), dist.go=c("LN"),
 #'    theta.go=as.matrix.data.frame(rbind(c(400,60,30))),
 #'    dist.stop=c("SW"),
@@ -217,7 +217,8 @@ SstSimulatedTrackingMethodBlock <- function(pid, n, m, SSD.b,
 #' @export
 #'
 
-SstSimulatedTrackingMethod <- function(pid, n, m, SSD.b,
+# SstSimulatedTrackingMethod
+simsstrack <- function(pid, n, m, SSD.b,
                                        dist.go, theta.go,
                                        dist.stop, theta.stop,
                                        block) {
@@ -228,7 +229,7 @@ SstSimulatedTrackingMethod <- function(pid, n, m, SSD.b,
 
   for(i in 1:b){
     M2[c((csn[i]+1):csn[i+1]),1] <- block[i]
-    M2[c((csn[i]+1):csn[i+1]),c(2:8)] <- SstSimulatedTrackingMethodBlock(pid=pid[i], n=n[i], m=m[i], SSD.b=SSD.b[i], dist.go=dist.go[i], theta.go=theta.go[i,], dist.stop=dist.stop[i], theta.stop=theta.stop[i,])
+    M2[c((csn[i]+1):csn[i+1]),c(2:8)] <- simsstrack0(pid=pid[i], n=n[i], m=m[i], SSD.b=SSD.b[i], dist.go=dist.go[i], theta.go=theta.go[i,], dist.stop=dist.stop[i], theta.stop=theta.stop[i,])
   }
 
   M2[,c(1,2)] <- M2[,c(2,1)]

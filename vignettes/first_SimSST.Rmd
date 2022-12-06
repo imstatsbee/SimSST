@@ -1,10 +1,10 @@
 ---
-title: "First Example of SimSST"
+title: "SimSST Examples"
 author: "Mohsen Soltanifar"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{First Example of SimSST}
+  %\VignetteIndexEntry{SimSST Examples}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -19,68 +19,57 @@ knitr::opts_chunk$set(
 ```
 
 
-## Vignette Info
 
-```{r}
+# SimSST
+
+The goal of SimSST is to simulate stop signal task data based on fixed ssd method and the tracking method.  
+
+
+## Installation
+
+You can install the development version of descfarspkg with:
+
+``` {r}
 rm(list=ls())
-library(SimSST)
 library(dplyr)
+library(gamlss.dist)
+library(SimSST)
 set.seed(1)
 ```
 
-### Example1. Paper: Fixed SSD method
+### Example1. Paper: Fixed SSD method-based Simulation
 
 ```{r}
-# pid <- c("FNLN1","FNLN1")
-# block <- c(1,2)
-# n <- c(10,10) 
-# m <- c(4,4)   
-# SSD.b <- c(220,240)
-# dist.go <- c("ExG","ExG")
-# theta.go <- as.matrix.data.frame(rbind(c(440,90,90),c(440,90,90))) 
-# dist.stop <- c("ExG","ExG")
-# theta.stop <- as.matrix.data.frame(rbind(c(120,80,70),c(120,80,70)))
 mySSTdata1 <- 
-  SstSimulatedFixedSsd(
+  simssfixed(
     pid=c("FNLN1","FNLN1"),
+    block = c(1,2), 
     n=c(10,10), m=c(4,4), SSD.b=c(220,240),
     dist.go=c("ExG","ExG"),
-    theta.go=as.matrix.data.frame(rbind(c(440,90,90),c(440,90,90))),
+    theta.go=as.matrix(rbind(c(440,90,90),c(440,90,90))),
     dist.stop=c("ExG","ExG"),
-    theta.stop=as.matrix.data.frame(rbind(c(120,80,70),c(120,80,70))), 
-    block = c(1,2))
-#View(mySSTdata1)
+    theta.stop=as.matrix(rbind(c(120,80,70),c(120,80,70))))
 mySSTdata1 
 ```
 
-### Example2.Paper: Tracking Method
-```{r}
-# pid<-c("FNLN1","FNLN1")
-# block<-c(1,2)
-# n<-c(10,10) 
-# m<-c(4,4)   
-# SSD.b<-c(220,240)
-# dist.go=c("ExG","ExG" )
-# theta.go= as.matrix.data.frame(rbind(c(440,90,90),c(440,90,90))) 
-# dist.stop=c("ExG","ExG" )
-# theta.stop=as.matrix.data.frame(rbind(c(120,80,70),c(120,80,70)))
+### Example2.Paper: Tracking Method-based Simulation
 
+```{r}
 mySSTdata2 <- 
-  SstSimulatedTrackingMethod(
+  simsstrack(
     pid=c("FNLN1","FNLN1"),
+    block=c(1,2), 
     n=c(10,10), m=c(4,4), SSD.b=c(220,240), 
     dist.go=c("ExG","ExG" ),
-    theta.go=as.matrix.data.frame(rbind(c(440,90,90),c(440,90,90))),
+    theta.go=as.matrix(rbind(c(440,90,90),c(440,90,90))),
     dist.stop=c("ExG","ExG" ),
-    theta.stop=as.matrix.data.frame(rbind(c(120,80,70),c(120,80,70))), 
-    block=c(1,2))
-# View(mySSTdata2)
+    theta.stop=as.matrix(rbind(c(120,80,70),c(120,80,70))))
 mySSTdata2
 ```
 
-To convert  SimSST simulated data to BEESTS software input data, add this function in the vineggette:
+To convert tracking-based SimSST simulated data to BEESTS software input data, we have:
 
-### Example: Tracking Method
+### Example: Converstion to BEESTs software format
 
 ```{r}
 Datatemp2<-mySSTdata2 
@@ -92,11 +81,8 @@ srrt<-Datatemp2[,7]
 Data2<-cbind.data.frame(ss_presented,inhibited,ssd,rt,srrt)
 for(i in 1:20){ if(Data2$inhibited[i]==0){Data2$rt[i]<-Data2$srrt[i]}}
 myBEESTSdata2<-(Data2[,-5])[order(ss_presented),]
-# View(myBEESTSdata2)
 myBEESTSdata2
 ```
 
-Once we reformat the datasets to BEESTS dataset format, the user feeds the BEESTS data to the BEESTS software to get their parameters (mu, sigma, tau). 
-
-
-
+Once users reformat the simulated datasets to BEESTS dataset format, they may feed  the
+BEESTS data to the BEESTS software to compute their plausible parameters (mu, sigma, tau). 

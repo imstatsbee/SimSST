@@ -101,15 +101,15 @@ simssfixed0 <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #' @rdname simssfixed
 #' @title Simulatng SSRT data using fixed SSD methods
 #' @description This function simulates b>=1 blocks of stop signal task trials for several participants using fixed SSD method.
-#' @param block a block name vector of size b blocks
 #' @param pid a vector of size b of Participant.id
+#' @param block a block name vector of size b blocks
 #' @param n a vector of size b of total number of trials
 #' @param m a vector of size b of total number of stops
+#' @param SSD.b a vector of size b of stop signal delay
 #' @param dist.go a vector of size b of distribution of go trials (ExG or SW)
 #' @param dist.stop a vector of size b of distribution of stop.trials (ExG or SW)
 #' @param theta.go c(mu.go, sigma.go, tau.go), a b*3 matrix
 #' @param theta.stop c(mu.stop, sigma.stop, tau.stop), a b*3 matrix
-#' @param SSD.b a vector of size b of stop signal delay
 #' @returns M11
 #' Output: a giant matrix with "sum(n)" rows and (7+1) columns
 #' @references
@@ -156,10 +156,10 @@ simssfixed0 <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #' @export
 
 # SstSimulatedFixedSsd
-simssfixed <- function(pid, n, m, SSD.b,
+simssfixed <- function(pid, block, n, m, SSD.b,
                                  dist.go, theta.go,
-                                 dist.stop, theta.stop,
-                                 block) {
+                                 dist.stop, theta.stop
+                                 ) {
 
   b <- length(block)
   csn <- c(0, cumsum(n))

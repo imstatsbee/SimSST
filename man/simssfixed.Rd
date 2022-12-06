@@ -7,7 +7,7 @@
 \usage{
 simssfixed0(pid, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 
-simssfixed(pid, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop, block)
+simssfixed(pid, block, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 }
 \arguments{
 \item{pid}{a vector of size b of Participant.id}

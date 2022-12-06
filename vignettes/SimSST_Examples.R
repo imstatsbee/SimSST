@@ -42,8 +42,8 @@ inhibited<-Datatemp2[,4]
 ssd<-Datatemp2[,8]
 rt<-Datatemp2[,5]
 srrt<-Datatemp2[,7]
-Data2<-cbind.data.frame(ss_presented,inhibited,ssd,rt,srrt)
-for(i in 1:20){ if(Data2$inhibited[i]==0){Data2$rt[i]<-Data2$srrt[i]}}
-myBEESTSdata2<-(Data2[,-5])[order(ss_presented),]
+Data2<-cbind.data.frame(ss_presented, inhibited, ssd, rt, srrt)
+for(i in 1:20)  if(Data2$inhibited[i]==0) Data2$rt[i] <- Data2$srrt[i]  
+myBEESTSdata2 <- (Data2[,-5])[order(ss_presented),]
 myBEESTSdata2
 

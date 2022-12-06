@@ -29,7 +29,7 @@ signal task data based on fixed ssd method
 library(SimSST)
 
 mySSTdata1 <- 
-  SstSimulatedFixedSsd(
+  simssfixed(
     pid=c("FNLN1","FNLN1"), 
     block = c(1,2),
     n=c(10,10), m=c(4,4), SSD.b=c(220,240),
@@ -48,7 +48,7 @@ signal task data based on tracking method
 ``` r
 library(SimSST)
 mySSTdata1 <- 
-  SstSimulatedTracking(
+  simsstrack(
     pid=c("FNLN1","FNLN1"), 
     block = c(1,2),
     n=c(10,10), m=c(4,4), SSD.b=c(220,240),

@@ -2,8 +2,8 @@ Package: SimSST
 Title: Simulated Stop Signal Task Data
 Version: 0.0.4
 Authors@R: c(
-    person(given="Mohsen", family="Soltanifar", email="mohsen.soltanifar@alum.utoronto.ca", role = c("aut"), comment=c(ORCID="0000-0002-5989-0082")), 
-    person(given="Chel Hee", family="Lee", email="chelhee.lee@ucalgary.ca", role=c("cre", "aut"), comment=c(ORCID="0000-0001-8209-8176"))
+    person(first="Mohsen", last="Soltanifar", email="mohsen.soltanifar@alum.utoronto.ca", role = c("aut")), 
+    person(first="Chel Hee", last="Lee", email="chelhee.lee@ucalgary.ca", role=c("cre", "aut"))
     )
 Description: Simulating stop signal task data. 
 License: GPL-3

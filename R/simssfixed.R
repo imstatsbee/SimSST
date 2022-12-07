@@ -112,12 +112,18 @@ simssfixed0 <- function(pid, n, m, SSD.b, dist.go, theta.go,
 #' @param theta.stop c(mu.stop, sigma.stop, tau.stop), a b*3 matrix
 #' @returns M11
 #' Output: a giant matrix with "sum(n)" rows and (7+1) columns
+#'
 #' @references
 #' Gordon D. Logan. On the Ability to Inhibit Thought and Action: A User's Guide to the Stop Signal Paradigm. In D. Dagenbach, & T.H. Carr (Eds.), Inhibitory Process in Attention, Memory and Language. San Diego: Academic Press, 1994.
+#'
 #' Dora Matzke, Jonathon Love, Thomas V. Wiecki, Scott D. Brown, and et al. Release the BEESTS: Bayesian Estimation of Ex-Gaussian Stop Signal Reaction Times Distributions. Frontiers in Psychology, 4: Article 918, 2013.
+#'
 #' Royce Andres, F. Xavier Alario, and Leendert Van Maanen. The Shifted Wald Distribution for Response Time Data Analysis. Psychological Methods, 21(3): 309-327, 2016.
+#'
 #' Andrew Heathcote. RTSYS: A DOS Application for the Analysis of Reaction Time Data, Behavior Research Methods, Instruments, & Computers, 28(3): 427-445, 1996.
+#'
 #' Mohsen Soltanifar. Stop Signal Reaction Times: New Estimations with Longitudinal, Bayesian and Time  Series based Methods, PhD Dissertation, Biostatistics Division, Dalla Lana School of Public Health, University of Toronto, Toronto, Canada, 2020.
+#'
 #' @examples
 #' ## Example1
 #' mySSTdata1 <- simssfixed(

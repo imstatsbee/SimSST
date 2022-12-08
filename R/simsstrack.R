@@ -6,36 +6,6 @@
 #
 
 #' @rdname simsstrack
-# @examples
-# ##
-# ## Example1
-# ##
-# myblockSSTdata1 <- simsstrack0(
-#     pid="John.Smith", n=50, m=10, SSD.b=200, dist.go="ExG,
-#     theta.go=c(400,60,), dist.stop="ExG", theta.stop=c(100,70,60))
-# myblockSSTdata1
-#
-# ##
-# ## Example2
-# ##
-#
-# myblockSSTdata2 <- simsstrack0(
-#      pid="Jane.Smith", n=50, m=10, SSD.b=200, dist.go="SW",
-#      theta.go=c(100,0.01,50), dist.stop="SW", theta.stop=c(75,0.01,100))
-# myblockSSTdata2
-#
-# ##
-# ## Example3
-# ## This example is expected to created an error
-# ##
-# \dontrun{
-# myblockSSTdata3 <- simsstrack0(
-# pid="Jane.Smith", n=50, m=10, SSD.b=200, dist.go="LN",
-# theta.go=c(100,0.01,50), dist.stop="SW", theta.stop=c(75,0.01,100))
-# myblockSSTdata3
-# }
-#
-
 simsstrack0 <- function(pid, n, m, SSD.b,
                                             dist.go, theta.go,
                                             dist.stop, theta.stop)
@@ -186,14 +156,9 @@ simsstrack0 <- function(pid, n, m, SSD.b,
 #'
 #' Dora Matzke, Jonathon Love, Thomas V. Wiecki, Scott D. Brown, and et al. Release the BEESTS: Bayesian Estimation of Ex-Gaussian Stop Signal Reaction Times Distributions. Frontiers in Psychology, 4: Article 918, 2013.
 #'
-#' Royce Andres, F. Xavier Alario, and Leendert Van Maanen. The Shifted Wald Distribution for Response Time Data Analysis. Psychological Methods, 21(3): 309-327, 2016.
-#'
-#' Andrew Heathcote. RTSYS: A DOS Application for the Analysis of Reaction Time Data, Behavior Research Methods, Instruments, & Computers, 28(3): 427-445, 1996.
-#'
 #' Mohsen Soltanifar. Stop Signal Reaction Times: New Estimations with Longitudinal, Bayesian and Time  Series based Methods, PhD Dissertation, Biostatistics Division, Dalla Lana School of Public Health, University of Toronto, Toronto, Canada, 2020.
 #'
 #' @examples
-#' #Example1
 #' mySSTdata1 <- simsstrack(
 #'     pid=c("John.Smith","Jane.McDonald","Jane.McDonald"), block=c(1,1,2),
 #'     n=c(50,100,150), m=c(10,20,30),
@@ -203,29 +168,8 @@ simsstrack0 <- function(pid, n, m, SSD.b,
 #'     theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))))
 #' mySSTdata1
 #'
-#' #Example2
-#' mySSTdata2 <- simsstrack(
-#'   pid=c("John.Smith","Jane.McDonald","Jane.McDonald"), block=c(1,1,2),
-#'   n=c(50,100,150), m=c(10,20,30), SSD.b = c(200,220,240),
-#'   dist.go=c("ExG","ExG","ExG"),
-#'   theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
-#'   dist.stop=c("SW","SW","SW"),
-#'   theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))))
-#' mySSTdata2
-#'
-#' # Example3  <--- produce error !
-#' \dontrun{
-#' mySSTdata3 <- simsstrack(pid="John.Smith", block=c(1),
-#'    n=c(1), m=c(50),
-#'    SSD.b=c(200), dist.go=c("LN"),
-#'    theta.go=as.matrix.data.frame(rbind(c(400,60,30))),
-#'    dist.stop=c("SW"),
-#'    theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))))
-#' mySSTdata3
-#' }
-#'
 #' @export
-#'
+
 
 # SstSimulatedTrackingMethod
 simsstrack <- function(pid, block, n, m, SSD.b,

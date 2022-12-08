@@ -1,8 +1,8 @@
 #
-# ./R/Updated-SST-Simulation-Fixed SSDs.R
+# ./R/simssfixed.R
 #
 # Chel Hee Lee & Mohsen Soltanifar
-# 2022-DEC-03
+# 2022-DEC-08
 #
 
 #' @rdname simssfixed
@@ -78,18 +78,17 @@ simssfixed0 <- function(pid, n, m, SSD.b, dist.go, theta.go,
 
 #' @rdname simssfixed
 #' @title Simulatng SSRT data using fixed SSD methods
-#' @description This function simulates b>=1 blocks of stop signal task trials for several participants using fixed SSD method.
-#' @param pid a vector of size b of Participant.id
-#' @param block a block name vector of size b blocks
-#' @param n a vector of size b of total number of trials
-#' @param m a vector of size b of total number of stops
-#' @param SSD.b a vector of size b of stop signal delay
-#' @param dist.go a vector of size b of distribution of go trials (ExG or SW)
-#' @param dist.stop a vector of size b of distribution of stop.trials (ExG or SW)
-#' @param theta.go c(mu.go, sigma.go, tau.go), a b*3 matrix
-#' @param theta.stop c(mu.stop, sigma.stop, tau.stop), a b*3 matrix
-#' @returns M11
-#' Output: a giant matrix with "sum(n)" rows and (7+1) columns
+#' @description Stop signal task data of go and stop trials is generated per participant. The fixed stop signal delay method with underlying exponentially modified Gaussian (ExG) or Shifted Wald (SW) distributions for each of go and stop process is applied. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate different distributional parameters of interest.
+#' @param pid character vector of size `b` of participant
+#' @param block numeric vector of size `b` blocks
+#' @param n numeric vector of size `b` of total number of trials
+#' @param m numeric vector of size `b` of total number of stops
+#' @param SSD.b numeric vector of size `b` of stop signal delay
+#' @param dist.go character vector of size `b` of distribution of go trials, either ExG or SW
+#' @param dist.stop character vector of size `b` of distribution of stop.trials, either ExG or SW
+#' @param theta.go numeric matrix of size `b` by columns of `mu.go`, `sigma.go`, and `tau.go`
+#' @param theta.stop numeric matrix of size `b` by columns of `mu.stop`, `sigma.stop`, and `tau.stop`
+#' @returns matrix with `sum(n)` rows and 8 columns
 #'
 #' @references
 #' Gordon D. Logan. On the Ability to Inhibit Thought and Action: A User's Guide to the Stop Signal Paradigm. In D. Dagenbach, & T.H. Carr (Eds.), Inhibitory Process in Attention, Memory and Language. San Diego: Academic Press, 1994.

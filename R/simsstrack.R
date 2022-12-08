@@ -139,17 +139,17 @@ simsstrack0 <- function(pid, n, m, SSD.b,
 
 #' @rdname simsstrack
 #' @title Simulating SSRT data using tracking method
-#' @description This function simulates b>=1 blocks of stop signal task trials for several participants using tracking method. Note that 'ExG' implies exponentially modified Gaussian and'SW' implies Shifted Wald distribution.
-#' @param pid a vector of size b of Participant.id
-#' @param block a block name vector of size b blocks
-#' @param SSD.b  a vector of size b of starting stop signal delay
-#' @param n a vector of size b of total number of trials
-#' @param m a vector of size b of total number of stops
-#' @param dist.go  a vector of size b of distribution of go trials (ExG or SW)
-#' @param dist.stop a vector of size b of distribution of stop.trials (ExG or SW)
-#' @param theta.go c(mu.go,sigma.go,tau.go), a b*3 matrix
-#' @param theta.stop c(mu.stop,sigma.stop,tau.stop), a b*3 matrix
-#' @returns Output a giant matrix with "sum(n)" rows and (7+1) columns
+#' @description Stop signal task data of go and stop trials is generated per participant. The tracking signal delay method with underlying exponentially modified Gaussian(ExG) or Shifted Wald(SW) distributions for each of go and stop process is applied. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate different distributional parameters of interest.
+#' @param pid a character vector of size `b` of participant
+#' @param block a numeric vector of size `b` blocks
+#' @param SSD.b a numeric vector of size `b` of starting stop signal delay
+#' @param n a numeric vector of size `b` of total number of trials
+#' @param m a numeric vector of size `b` of total number of stops
+#' @param dist.go a character vector of size `b` of distribution of go trials, either ExG or SW
+#' @param dist.stop a character vector of size `b` of distribution of stop.trials, either ExG or SW
+#' @param theta.go a numeric matrix of size `b` by columns `mu.go`, `sigma.go`, `tau.go`
+#' @param theta.stop a numeric matrix of size `b` by columns `mu.stop`, `sigma.stop`, `tau.stop`
+#' @returns a matrix with `sum(n)` rows and (7+1) columns
 #'
 #' @references
 #' Gordon D. Logan. On the Ability to Inhibit Thought and Action: A User's Guide to the Stop Signal Paradigm. In D. Dagenbach, & T.H. Carr (Eds.), Inhibitory Process in Attention, Memory and Language. San Diego: Academic Press, 1994.

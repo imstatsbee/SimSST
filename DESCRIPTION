@@ -5,7 +5,8 @@ Authors@R: c(
     person(given="Mohsen", family="Soltanifar", email="mohsen.soltanifar@alum.utoronto.ca", role = c("aut"), comment=c(ORCID="0000-0002-5989-0082")), 
     person(given="Chel Hee", family="Lee", email="chelhee.lee@ucalgary.ca", role=c("cre", "aut"), comment=c(ORCID="0000-0001-8209-8176"))
     )
-Description: Simulating stop signal task data. 
+Description: Stop signal task  data of go and stop trials is gernerated per participant. The simulation process is based on the independent horse race model and fixed stop signal delay or tracking method. Each of go and stop process is assumed having exponentially modified Gaussian(ExG) or Shifted Wald (SW) distributions. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate various brain stopping processes manifested by ExG or SW distributional parameters of interest. 
+
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

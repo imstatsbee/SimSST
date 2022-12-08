@@ -30,14 +30,13 @@ The goal of SimSST is to simulate stop signal task data based on fixed ssd metho
 You can install the development version of descfarspkg with:
 
 ``` {r}
-rm(list=ls())
 library(dplyr)
 library(gamlss.dist)
 library(SimSST)
 set.seed(1)
 ```
 
-### Example1. Paper: Fixed SSD method-based Simulation
+### Example 1. Paper: Fixed SSD method-based Simulation
 
 ```{r}
 mySSTdata1 <- 
@@ -52,7 +51,7 @@ mySSTdata1 <-
 mySSTdata1 
 ```
 
-### Example2.Paper: Tracking Method-based Simulation
+### Example 2.Paper: Tracking Method-based Simulation
 
 ```{r}
 mySSTdata2 <- 

@@ -5,7 +5,6 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-rm(list=ls())
 library(dplyr)
 library(gamlss.dist)
 library(SimSST)

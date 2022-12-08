@@ -10,33 +10,31 @@ simssfixed0(pid, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 simssfixed(pid, block, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 }
 \arguments{
-\item{pid}{a vector of size b of Participant.id}
+\item{pid}{character vector of size \code{b} of participant}
 
-\item{n}{a vector of size b of total number of trials}
+\item{n}{numeric vector of size \code{b} of total number of trials}
 
-\item{m}{a vector of size b of total number of stops}
+\item{m}{numeric vector of size \code{b} of total number of stops}
 
-\item{SSD.b}{a vector of size b of stop signal delay}
+\item{SSD.b}{numeric vector of size \code{b} of stop signal delay}
 
-\item{dist.go}{a vector of size b of distribution of go trials (ExG or SW)}
+\item{dist.go}{character vector of size \code{b} of distribution of go trials, either ExG or SW}
 
-\item{theta.go}{c(mu.go, sigma.go, tau.go), a b*3 matrix}
+\item{theta.go}{numeric matrix of size \code{b} by columns of \code{mu.go}, \code{sigma.go}, and \code{tau.go}}
 
-\item{dist.stop}{a vector of size b of distribution of stop.trials (ExG or SW)}
+\item{dist.stop}{character vector of size \code{b} of distribution of stop.trials, either ExG or SW}
 
-\item{theta.stop}{c(mu.stop, sigma.stop, tau.stop), a b*3 matrix}
+\item{theta.stop}{numeric matrix of size \code{b} by columns of \code{mu.stop}, \code{sigma.stop}, and \code{tau.stop}}
 
-\item{block}{a block name vector of size b blocks}
+\item{block}{numeric vector of size \code{b} blocks}
 }
 \value{
-M11
-Output: a giant matrix with "sum(n)" rows and (7+1) columns
+matrix with \code{sum(n)} rows and 8 columns
 }
 \description{
-This function simulates b>=1 blocks of stop signal task trials for several participants using fixed SSD method.
+Stop signal task data of go and stop trials is generated per participant. The fixed stop signal delay method with underlying exponentially modified Gaussian (ExG) or Shifted Wald (SW) distributions for each of go and stop process is applied. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate different distributional parameters of interest.
 }
 \examples{
-## Example1
 mySSTdata1 <- simssfixed(
  pid = c("John.Smith","Jane.McDonald","Jane.McDonald"),
  n = c(50,100,150), m=c(10,20,30), SSD.b=c(200,220,240),
@@ -47,38 +45,11 @@ mySSTdata1 <- simssfixed(
  block=c(1,1,2))
 mySSTdata1
 
-## Example2
-mySSTdata2 <- simssfixed(
-  pid=c("John.Smith","Jane.McDonald","Jane.McDonald"),
-  n=c(50,100,150), m=c(10,20,30), SSD.b=c(200,220,240),
-  dist.go=c("ExG","ExG","ExG"),
-  theta.go=as.matrix(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
-  dist.stop=c("SW","SW","SW"),
-  theta.stop=as.matrix(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))),
-  block=c(1,1,2))
-mySSTdata2
-
-## Example3
-\dontrun{ ## this expected to produce an error
-mySSTdata3 <- simssfixed(
-    pid=c("John.Smith"),
-    n=c(50), m=c(10), SSD.b=c(200),
-    dist.go=c("LN"),
-    theta.go=as.matrix.data.frame(rbind(c(400,60,30))),
-    dist.stop=c("SW"),
-    theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))),
-    block=c(1))
-mySSTdata3
-}
 }
 \references{
 Gordon D. Logan. On the Ability to Inhibit Thought and Action: A User's Guide to the Stop Signal Paradigm. In D. Dagenbach, & T.H. Carr (Eds.), Inhibitory Process in Attention, Memory and Language. San Diego: Academic Press, 1994.
 
 Dora Matzke, Jonathon Love, Thomas V. Wiecki, Scott D. Brown, and et al. Release the BEESTS: Bayesian Estimation of Ex-Gaussian Stop Signal Reaction Times Distributions. Frontiers in Psychology, 4: Article 918, 2013.
-
-Royce Andres, F. Xavier Alario, and Leendert Van Maanen. The Shifted Wald Distribution for Response Time Data Analysis. Psychological Methods, 21(3): 309-327, 2016.
-
-Andrew Heathcote. RTSYS: A DOS Application for the Analysis of Reaction Time Data, Behavior Research Methods, Instruments, & Computers, 28(3): 427-445, 1996.
 
 Mohsen Soltanifar. Stop Signal Reaction Times: New Estimations with Longitudinal, Bayesian and Time  Series based Methods, PhD Dissertation, Biostatistics Division, Dalla Lana School of Public Health, University of Toronto, Toronto, Canada, 2020.
 }

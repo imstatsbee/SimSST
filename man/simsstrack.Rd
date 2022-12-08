@@ -10,32 +10,31 @@ simsstrack0(pid, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 simsstrack(pid, block, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 }
 \arguments{
-\item{pid}{a vector of size b of Participant.id}
+\item{pid}{a character vector of size \code{b} of participant}
 
-\item{n}{a vector of size b of total number of trials}
+\item{n}{a numeric vector of size \code{b} of total number of trials}
 
-\item{m}{a vector of size b of total number of stops}
+\item{m}{a numeric vector of size \code{b} of total number of stops}
 
-\item{SSD.b}{a vector of size b of starting stop signal delay}
+\item{SSD.b}{a numeric vector of size \code{b} of starting stop signal delay}
 
-\item{dist.go}{a vector of size b of distribution of go trials (ExG or SW)}
+\item{dist.go}{a character vector of size \code{b} of distribution of go trials, either ExG or SW}
 
-\item{theta.go}{c(mu.go,sigma.go,tau.go), a b*3 matrix}
+\item{theta.go}{a numeric matrix of size \code{b} by columns \code{mu.go}, \code{sigma.go}, \code{tau.go}}
 
-\item{dist.stop}{a vector of size b of distribution of stop.trials (ExG or SW)}
+\item{dist.stop}{a character vector of size \code{b} of distribution of stop.trials, either ExG or SW}
 
-\item{theta.stop}{c(mu.stop,sigma.stop,tau.stop), a b*3 matrix}
+\item{theta.stop}{a numeric matrix of size \code{b} by columns \code{mu.stop}, \code{sigma.stop}, \code{tau.stop}}
 
-\item{block}{a block name vector of size b blocks}
+\item{block}{a numeric vector of size \code{b} blocks}
 }
 \value{
-Output a giant matrix with "sum(n)" rows and (7+1) columns
+a matrix with \code{sum(n)} rows and (7+1) columns
 }
 \description{
-This function simulates b>=1 blocks of stop signal task trials for several participants using tracking method. Note that 'ExG' implies exponentially modified Gaussian and'SW' implies Shifted Wald distribution.
+Stop signal task data of go and stop trials is generated per participant. The tracking signal delay method with underlying exponentially modified Gaussian(ExG) or Shifted Wald(SW) distributions for each of go and stop process is applied. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate different distributional parameters of interest.
 }
 \examples{
-#Example1
 mySSTdata1 <- simsstrack(
     pid=c("John.Smith","Jane.McDonald","Jane.McDonald"), block=c(1,1,2),
     n=c(50,100,150), m=c(10,20,30),
@@ -45,36 +44,11 @@ mySSTdata1 <- simsstrack(
     theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))))
 mySSTdata1
 
-#Example2
-mySSTdata2 <- simsstrack(
-  pid=c("John.Smith","Jane.McDonald","Jane.McDonald"), block=c(1,1,2),
-  n=c(50,100,150), m=c(10,20,30), SSD.b = c(200,220,240),
-  dist.go=c("ExG","ExG","ExG"),
-  theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
-  dist.stop=c("SW","SW","SW"),
-  theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100),c(75,0.01,100),c(75,0.01,100))))
-mySSTdata2
-
-# Example3  <--- produce error !
-\dontrun{
-mySSTdata3 <- simsstrack(pid="John.Smith", block=c(1),
-   n=c(1), m=c(50),
-   SSD.b=c(200), dist.go=c("LN"),
-   theta.go=as.matrix.data.frame(rbind(c(400,60,30))),
-   dist.stop=c("SW"),
-   theta.stop=as.matrix.data.frame(rbind(c(75,0.01,100))))
-mySSTdata3
-}
-
 }
 \references{
 Gordon D. Logan. On the Ability to Inhibit Thought and Action: A User's Guide to the Stop Signal Paradigm. In D. Dagenbach, & T.H. Carr (Eds.), Inhibitory Process in Attention, Memory and Language. San Diego: Academic Press, 1994.
 
 Dora Matzke, Jonathon Love, Thomas V. Wiecki, Scott D. Brown, and et al. Release the BEESTS: Bayesian Estimation of Ex-Gaussian Stop Signal Reaction Times Distributions. Frontiers in Psychology, 4: Article 918, 2013.
-
-Royce Andres, F. Xavier Alario, and Leendert Van Maanen. The Shifted Wald Distribution for Response Time Data Analysis. Psychological Methods, 21(3): 309-327, 2016.
-
-Andrew Heathcote. RTSYS: A DOS Application for the Analysis of Reaction Time Data, Behavior Research Methods, Instruments, & Computers, 28(3): 427-445, 1996.
 
 Mohsen Soltanifar. Stop Signal Reaction Times: New Estimations with Longitudinal, Bayesian and Time  Series based Methods, PhD Dissertation, Biostatistics Division, Dalla Lana School of Public Health, University of Toronto, Toronto, Canada, 2020.
 }

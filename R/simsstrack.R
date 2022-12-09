@@ -139,7 +139,7 @@ simsstrack0 <- function(pid, n, m, SSD.b,
 
 #' @rdname simsstrack
 #' @title Simulating SSRT data using tracking method
-#' @description Stop signal task data of go and stop trials is generated per participant. The tracking signal delay method with underlying exponentially modified Gaussian(ExG) or Shifted Wald(SW) distributions for each of go and stop process is applied. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate different distributional parameters of interest.
+#' @description Stop signal task data of go and stop trials is generated per participant. The tracking signal delay method with underlying exponentially modified Gaussian(ExG) or Shifted Wald(SW) distributions for each of go and stop process is applied. The output data can be converted to 'BEESTS' software input data enabling researchers to test and evaluate different distributional parameters of interest.
 #' @param pid a character vector of size `b` of participant
 #' @param block a numeric vector of size `b` blocks
 #' @param SSD.b a numeric vector of size `b` of starting stop signal delay

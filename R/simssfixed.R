@@ -78,7 +78,7 @@ simssfixed0 <- function(pid, n, m, SSD.b, dist.go, theta.go,
 
 #' @rdname simssfixed
 #' @title Simulatng SSRT data using fixed SSD methods
-#' @description Stop signal task data of go and stop trials is generated per participant. The fixed stop signal delay method with underlying exponentially modified Gaussian (ExG) or Shifted Wald (SW) distributions for each of go and stop process is applied. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate different distributional parameters of interest.
+#' @description Stop signal task data of go and stop trials is generated per participant. The fixed stop signal delay method with underlying exponentially modified Gaussian (ExG) or Shifted Wald (SW) distributions for each of go and stop process is applied. The output data can be converted to 'BEESTS' software input data enabling researchers to test and evaluate different distributional parameters of interest.
 #' @param pid character vector of size `b` of participant
 #' @param block numeric vector of size `b` blocks
 #' @param n numeric vector of size `b` of total number of trials

@@ -32,7 +32,7 @@ simssfixed(pid, block, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 matrix with \code{sum(n)} rows and 8 columns
 }
 \description{
-Stop signal task data of go and stop trials is generated per participant. The fixed stop signal delay method with underlying exponentially modified Gaussian (ExG) or Shifted Wald (SW) distributions for each of go and stop process is applied. The output data can be converted to BEESTS software input data enabling researchers to test and evaluate different distributional parameters of interest.
+Stop signal task data of go and stop trials is generated per participant. The fixed stop signal delay method with underlying exponentially modified Gaussian (ExG) or Shifted Wald (SW) distributions for each of go and stop process is applied. The output data can be converted to 'BEESTS' software input data enabling researchers to test and evaluate different distributional parameters of interest.
 }
 \examples{
 mySSTdata1 <- simssfixed(

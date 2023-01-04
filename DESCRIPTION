@@ -1,6 +1,6 @@
 Package: SimSST
 Title: Simulated Stop Signal Task Data
-Version: 0.0.4.7
+Version: 0.0.5.0
 Authors@R: c(
     person(given="Mohsen", family="Soltanifar", email="mohsen.soltanifar@alum.utoronto.ca", role = c("aut"), comment=c(ORCID="0000-0002-5989-0082")), 
     person(given="Chel Hee", family="Lee", email="chelhee.lee@ucalgary.ca", role=c("cre", "aut"), comment=c(ORCID="0000-0001-8209-8176"))
@@ -12,6 +12,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports:
   dplyr, 
-  gamlss.dist
+  gamlss.dist,
+  MASS
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

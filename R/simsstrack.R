@@ -5,7 +5,7 @@
 # 2022-DEC-03
 #
 
-#' @rdname simsstrack
+# @rdname simsstrack
 simsstrack0 <- function(pid, n, m, SSD.b,
                                             dist.go, theta.go,
                                             dist.stop, theta.stop)

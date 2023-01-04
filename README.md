@@ -70,7 +70,7 @@ signal task data based on the generalized tracking method.
 
 ```{r}
 mySSTdata1 <- simssgen(
-     pid = c("John.Smith", "Jane.McDonald", "Jane.McDonald"),
+     pid = c("FNLN1", "FNLN2", "FNLN2"),
      block = c(1,1,2),
      n = c(50,100,150),
      m = c(10,20,30),

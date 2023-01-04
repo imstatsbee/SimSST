@@ -1,5 +1,5 @@
 #
-# ./R/Updated-SST-Simulation-General.R
+# ./R/simssgen.R
 #
 # Chel Hee Lee & Mohsen Soltanifar
 # 2023-JAN-02
@@ -8,65 +8,65 @@
 # library(MASS)
 #
 #
-#' @rdname simbivargortssrt1
-simbivargortssrt1<-function(n,theta.go,theta.stop,rho){
-  rhop=2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
+# @rdname simbivargortssrt1
+simbivargortssrt1 <- function(n,theta.go,theta.stop,rho){
+  rhop <- 2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
   mu0 <- c(0,0) # Mean vector
   sigma0 <- matrix(c(1,  rhop,  rhop, 1),2) # Covariance matrix
   bvn <- MASS::mvrnorm(n, mu = mu0, Sigma = sigma0 ) #Bivariate  correlated normal
-  U1<-pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-  U2<-pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U1 <- stats::pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U2 <- stats::pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   GORT <- round(gamlss.dist::qexGAUS(U1, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]),digits = 1)
   SSRT <- round(gamlss.dist::qexGAUS(U2, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]),digits = 1)
-  Answer=cbind(GORT,SSRT)
+  Answer <- cbind(GORT,SSRT)
   return(Answer)
 }
 
-#' @rdname simbivargortssrt2
-simbivargortssrt2<-function(n,theta.go,theta.stop,rho){
-  rhop=2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
+# @rdname simbivargortssrt2
+simbivargortssrt2 <- function(n,theta.go,theta.stop,rho){
+  rhop <- 2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
   mu0 <- c(0,0) # Mean vector
   sigma0 <- matrix(c(1,  rhop,  rhop, 1),2) # Covariance matrix
   bvn <- MASS::mvrnorm(n, mu = mu0, Sigma = sigma0 ) #Bivariate  correlated normal
-  U1<-pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-  U2<-pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U1 <- stats::pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U2 <- stats::pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   GORT <- round(gamlss.dist::qexGAUS(U1, mu = theta.go[1], sigma = theta.go[2] , nu = theta.go[3]),digits = 1)
   SSRT <- round(gamlss.dist::qIG(U2, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3] ,digits = 1)
-  Answer=cbind(GORT,SSRT)
+  Answer <- cbind(GORT,SSRT)
   return(Answer)
 
 }
 
-#' @rdname simbivargortssrt3
-simbivargortssrt3<-function(n,theta.go,theta.stop,rho){
-  rhop=2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
+# @rdname simbivargortssrt3
+simbivargortssrt3 <- function(n,theta.go,theta.stop,rho){
+  rhop <- 2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
   mu0 <- c(0,0) # Mean vector
   sigma0 <- matrix(c(1,  rhop,  rhop, 1),2) # Covariance matrix
   bvn <- MASS::mvrnorm(n, mu = mu0, Sigma = sigma0 ) #Bivariate  correlated normal
-  U1<-pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-  U2<-pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U1 <- stats::pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U2 <- stats::pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   GORT <- round(gamlss.dist::qIG(U1, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3],digits = 1)
   SSRT <- round(gamlss.dist::qexGAUS(U2, mu = theta.stop[1], sigma = theta.stop[2], nu = theta.stop[3]),digits = 1)
-  Answer=cbind(GORT,SSRT)
+  Answer <- cbind(GORT,SSRT)
   return(Answer)
 }
 
 
-#' @rdname simbivargortssrt4
-simbivargortssrt4<-function(n,theta.go,theta.stop,rho){
-  rhop=2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
+# @rdname simbivargortssrt4
+simbivargortssrt4 <- function(n,theta.go,theta.stop,rho){
+  rhop <- 2*sin((rho*pi)/6) # Pearson corr in terms of Spearman corr
   mu0 <- c(0,0) # Mean vector
   sigma0 <- matrix(c(1,  rhop,  rhop, 1),2) # Covariance matrix
   bvn <- MASS::mvrnorm(n, mu = mu0, Sigma = sigma0 ) #Bivariate  correlated normal
-  U1<-pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-  U2<-pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U1 <- stats::pnorm(bvn[,1], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  U2 <- stats::pnorm(bvn[,2], mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   GORT <- round(gamlss.dist::qIG(U1, mu = theta.go[1], sigma = theta.go[2])+ theta.go[3],digits = 1)
   SSRT <- round(gamlss.dist::qIG(U2, mu = theta.stop[1], sigma = theta.stop[2])+ theta.stop[3],digits = 1)
-  Answer=cbind(GORT,SSRT)
+  Answer <- cbind(GORT,SSRT)
   return(Answer)
 }
 
-#' @rdname simssgen0
+# @rdname simssgen0
 simssgen0 <- function(pid, n, m, SSD.b,
                       dist.go, theta.go,
                       dist.stop, theta.stop,rho,d)
@@ -210,8 +210,8 @@ simssgen0 <- function(pid, n, m, SSD.b,
 #' @param dist.stop a character vector of size `b` of distribution of stop.trials, either ExG or SW
 #' @param theta.go a numeric matrix of size `b` by columns `mu.go`, `sigma.go`, `tau.go`
 #' @param theta.stop a numeric matrix of size `b` by columns `mu.stop`, `sigma.stop`, `tau.stop`
-#' @parm   rho a numeric vector of size `b` of Spearman correlation between GORT and SSRT in range -1 to +1
-#' @parm   d a numeric vector of size `b` of  added constant value to subsequent stop trials SSD
+#' @param rho a numeric vector of size `b` of Spearman correlation between GORT and SSRT in range -1 to +1
+#' @param d a numeric vector of size `b` of  added constant value to subsequent stop trials SSD
 #' @returns a matrix with `sum(n)` rows and (8) columns
 #'
 #' @references
@@ -223,19 +223,20 @@ simssgen0 <- function(pid, n, m, SSD.b,
 #'
 #' @examples
 #' mySSTdata1 <- simssgen(
-#'     pid=c("John.Smith","Jane.McDonald","Jane.McDonald"), block=c(1,1,2),
-#'     n=c(50,100,150), m=c(10,20,30),
-#'     SSD.b=c(200,220,240), dist.go=c("ExG","ExG","ExG"),
-#'     theta.go=as.matrix.data.frame(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
-#'     dist.stop=c("ExG","ExG","ExG"),
-#'     theta.stop=as.matrix.data.frame(rbind(c(100,70,60),c(120,80,70),c(120,80,70))),
-#'     rho=c(0.35,0.45,0.45),
-#'     d=c(50,65,75))
+#'     pid = c("John.Smith","Jane.McDonald","Jane.McDonald"),
+#'     block = c(1,1,2),
+#'     n = c(50,100,150),
+#'     m = c(10,20,30),
+#'     SSD.b = c(200,220,240),
+#'     dist.go = c("ExG","ExG","ExG"),
+#'     theta.go = as.matrix(rbind(c(400,60,30),c(440,90,90),c(440,90,90))),
+#'     dist.stop = c("ExG","ExG","ExG"),
+#'     theta.stop = as.matrix(rbind(c(100,70,60),c(120,80,70),c(120,80,70))),
+#'     rho = c(0.35,0.45,0.45),
+#'     d = c(50,65,75))
 #' mySSTdata1
 #'
 #' @export
-#'
-#'
 
 # SstSimulatedGeneral
 simssgen <- function(pid, block, n, m, SSD.b,
@@ -262,5 +263,3 @@ simssgen <- function(pid, block, n, m, SSD.b,
 
   return(M22)
 }
-
-

@@ -32,6 +32,7 @@ You can install the development version of descfarspkg with:
 ``` {r}
 library(dplyr)
 library(gamlss.dist)
+library(MASS)
 library(SimSST)
 set.seed(1)
 ```
@@ -95,8 +96,8 @@ BEESTS data to the BEESTS software to compute their plausible parameters (mu, si
 ### Example: Simulating correlated SST data using general tracking method
 
 ```{r}
-mySSTdata1 <- simssgen(
-     pid = c("John.Smith","Jane.McDonald","Jane.McDonald"),
+mySSTdata3 <- simssgen(
+     pid = c("FNLN1","FNLN2","FNLN2"),
      block = c(1,1,2),
      n = c(50,100,150),
      m = c(10,20,30),
@@ -107,5 +108,5 @@ mySSTdata1 <- simssgen(
      theta.stop = as.matrix(rbind(c(100,70,60),c(120,80,70),c(120,80,70))),
      rho = c(0.35,0.45,0.45),
      d = c(50,65,75))
-mySSTdata1
+mySSTdata3
 ```

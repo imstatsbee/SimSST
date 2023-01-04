@@ -65,6 +65,9 @@ mySSTdata1
 
 ## Example: Simulating correlated SST data using general tracking method
 
+This function takes in eleven variables and produces a matrix of stop
+signal task data based on the generalized tracking method.
+
 ```{r}
 mySSTdata1 <- simssgen(
      pid = c("John.Smith", "Jane.McDonald", "Jane.McDonald"),

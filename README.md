@@ -48,7 +48,7 @@ This function takes in nine variables and produces a matrix of stop
 signal task data based on tracking method
 
 ``` r
-mySSTdata1 <- 
+mySSTdata2 <- 
   simsstrack(
     pid = c("FNLN1","FNLN1"), 
     block = c(1,2),
@@ -60,7 +60,7 @@ mySSTdata1 <-
     dist.stop = c("ExG","ExG"),
     theta.stop = as.matrix(rbind(c(120,80,70),c(120,80,70)))
   )
-mySSTdata1 
+mySSTdata2 
 ```
 
 ## Example: Simulating correlated SST data using general tracking method
@@ -69,7 +69,7 @@ This function takes in eleven variables and produces a matrix of stop
 signal task data based on the generalized tracking method.
 
 ```{r}
-mySSTdata1 <- simssgen(
+mySSTdata3 <- simssgen(
      pid = c("FNLN1", "FNLN2", "FNLN2"),
      block = c(1,1,2),
      n = c(50,100,150),
@@ -81,5 +81,5 @@ mySSTdata1 <- simssgen(
      theta.stop = as.matrix(rbind(c(100,70,60),c(120,80,70),c(120,80,70))),
      rho = c(0.35,0.45,0.45),
      d = c(50,65,75))
-mySSTdata1
+mySSTdata3
 ```

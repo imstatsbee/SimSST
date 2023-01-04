@@ -17,6 +17,7 @@ You can install the development version of SimSST with:
 ``` r
 library(gamlss.dist)
 library(dplyr)
+library(MASS)
 library(SimSST)
 ```
 

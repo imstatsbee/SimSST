@@ -26,7 +26,7 @@ simsstrack(pid, block, n, m, SSD.b, dist.go, theta.go, dist.stop, theta.stop)
 \item{theta.stop}{a numeric matrix of size \code{b} by columns \code{mu.stop}, \code{sigma.stop}, \code{tau.stop}}
 }
 \value{
-a matrix with \code{sum(n)} rows and (7+1) columns
+a matrix with \code{sum(n)} rows and (8) columns
 }
 \description{
 Stop signal task data of go and stop trials is generated per participant. The tracking signal delay method with underlying exponentially modified Gaussian(ExG) or Shifted Wald(SW) distributions for each of go and stop process is applied. The output data can be converted to 'BEESTS' software input data enabling researchers to test and evaluate different distributional parameters of interest.
